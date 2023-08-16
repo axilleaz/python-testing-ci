@@ -31,38 +31,26 @@ def test_daily_mean_integers():
     npt.assert_array_equal(daily_mean(test_input), test_result)
 
 
-def test_daily_max():
+@pytest.mark.parametrize("test, correct", [([[0, 0], [0, 0], [0, 0], [0, 0]], [0, 0]), ([[1, 2], [3, 4], [5, 6]], [5, 6])])
+def test_daily_max(test, correct):
    """Test that max function works for an array of integers."""
    from inflammation.models import daily_max
-
-   test_input = np.array([[-1, 2],
-			  [11, -6],
-			  [0, -3],
-			  [9, -8]])
-
-   test_results = np.array([11, 2])
-
-   npt.assert_array_equal(daily_max(test_input), test_results)
+   npt.assert_array_equal(daily_max(test), correct)
 
 
-def test_daily_min():
+@pytest.mark.parametrize("test, correct", [([[-3, 2], [3, 5], [-4, 5]],
+[-4, 2]), ([[0, 0], [0, 0], [0, 0]], [0, 0])])
+def test_daily_min(test, correct):
    """Test that min function works for an array of integers."""
    from inflammation.models import daily_min
 
-   test_input = ([[-3, 2],
-   		   [4, 1],
-		   [3, -6],
-		   [120, -3]])
-
-   test_results = ([-3, -6])
-
-   npt.assert_array_equal(daily_min(test_input), test_results)
+   npt.assert_array_equal(daily_min(test), correct)
 
 
-def test_daily_min_string()
+def test_daily_min_string():
    """Test for TypeError when passing strings"""
    from inflammation.models import daily_min
 
    with pytest.raises(TypeError):
-   	error_expected = daily_min([["Hello", "there"], ["General", 
+      error_expected = daily_min([["Hello", "there"], ["General",
 "Kenobi"]])
